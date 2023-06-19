@@ -1,7 +1,7 @@
 FROM alpine:3.17.3
 
 RUN apk update && apk upgrade
-RUN apk add php php-fpm
+RUN apk add php php-fpm php-mysqli
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar\
 	&& chmod +x wp-cli.phar
 RUN wget https://wordpress.org/latest.tar.gz\
