@@ -1,9 +1,8 @@
 #!bin/sh
 
-mysql -e "CREATE DATABASE IF NOT EXISTS \'${MYSQL_DATABASE}\';"
-mysql -e "CREATE USER IF NOT EXISTS ${MYSQL_USER}@localhost IDENTIFIED BY \'${MYSQL_PASSWORD}\';"
-mysql -e "GRANT ALL PRIVILEGES ${MYSQL_USER}@localhost IDENTIFIED BY \'${MYSQL_PASSWORD}\';"
-mysql -e "ALTER USER root@localhost IDENTIFIED BY \'${MYSQL_ROOT_PASSWORD}\';"
-mysql -e "FLUSH PRIVILEGES;" -u root -p${MYSQL_ROOT_PASSWORD}
+sed -i "s/{MYSQL_DATABASE}/${MYSQL_DATABASE}/g" init.sql
+sed -i "s/{MYSQL_USER}/${MYSQL_USER}/g" init.sql
+sed -i "s/{MYSQL_PASSWORD}/${MYSQL_PASSWORD}/g" init.sql
+sed -i "s/{MYSQL_ROOT_PASSWORD}/${MYSQL_ROOT_PASSWORD}/g" init.sql
 
-exec mysqld_safe
+exec /usr/bin/mariadbd --no-defaults --user=root --datadir=/var/lib/mysql --init-file=init.sql
