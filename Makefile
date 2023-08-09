@@ -11,6 +11,7 @@ down:
 
 clean:
 	docker system prune -af
+	docker volume rm $$(docker volume ls -q)
 	sudo rm -rf /home/ulayus/data/*
 
 .PHONY: all clean up down
